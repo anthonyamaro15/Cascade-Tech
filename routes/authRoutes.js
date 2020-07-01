@@ -5,6 +5,7 @@ const { updateData } = require("../helperFunctions/updateData");
 const route = express.Router();
 
 let data = [];
+let expires = 3600000;
 
 // POST /api/auth/register
 route.post("/register", validateBody, (req, res) => {
@@ -67,6 +68,14 @@ route.post("/login", (req, res) => {
     return res.status(200).json(uniqueEmail);
   } else {
     uniqueEmail.event.push({ type: "LOGIN", created: timestamp });
+
+    // deletes events after an hour
+    setTimeout(() => {
+      data = data.map((user) => {
+        user.event = [];
+        return user;
+      });
+    }, expires);
     return res.status(200).json(uniqueEmail);
   }
 });
