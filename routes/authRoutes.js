@@ -32,12 +32,14 @@ route.post("/login", (req, res) => {
   if (!uniqueEmail) {
     return res.status(400).json({ errMessage: "user doesn't exist" });
   } else {
-    // now we check if exist but typed the wrong password
+    // now we check if user exist but typed the wrong password
     if (checkPassword === undefined) {
       // we check if the event method exist and if it does'nt we have to create it
       // and if it does we can just push the type FAILED and the time.
       if (uniqueEmail.event === undefined) {
         const updateFail = {
+          // we destructure everything that is inside the uniqueEmail object to create
+          // a new object with now a event property in it
           ...uniqueEmail,
           event: [{ type: "FAILED", created: timestamp }],
         };
