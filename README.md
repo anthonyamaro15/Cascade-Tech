@@ -3,12 +3,12 @@
 2. create a .env file and create variables for
    SECRET but if not there is a default value.
 
-3. there is a middleware in server.js pass that file as middleware
+3. there is a middleware in server.js called (restrictedRoute) pass that file as middleware
    to add authorization to users.
 
 ## - users register and login routes.
 
-> ### POST /api/authregister
+> ### POST /api/auth/register
 
 ```
 Expects:
@@ -49,7 +49,7 @@ Returns:
 
 <br />
 
-> ## after you login it will add a new property to users information.
+> ## after you login, it will add a new property to users information.
 >
 > ## if you try to login with the wrong password it will add a type of FAILED
 
@@ -61,7 +61,7 @@ Returns:
     "phone": <integer>,
     "event: [
        {
-          "type": <string>, // example (LOGIN)
+          "type": <string>, // example (LOGIN) with right credentials otherwise (FAILED)
           "created": <timestamp>
 
        }
@@ -72,4 +72,5 @@ Returns:
 
 <br />
 
-## if you keep login in it will keep adding new properties after an hour it will delete them.
+we are using an array as our database, was trying to use postgreSQL but i wasn't sure if i was allow to.
+If you keep login in it will keep adding new properties after an hour it will delete them.
